@@ -1,0 +1,39 @@
+Assumptions:
+===========
+1) Adding an existing person with a new card or existing card is ignored. Basically, person is the primary key
+2) Negative charges or credits are ignored.
+3) CTRL+Z exits the program execution and prints the summary. 
+4) The given specification that - 
+  "Your program must accept three input commands passed with space delimited
+  arguments" 
+  has been taken to mean that, names have the following format : <FirstName> and not <Firstname Lastname>
+
+Design Decisions:
+================
+1) Made AccountBook a singleton class, since we want to maintain only one map of all users and their cards.
+2) Used a sorted map to save the name to account map. Easy to print the summary in alphabetical order
+3) Made name, card and limit information final in Account class, so they cannot be altered and can be set only through constructor
+4) Made charge  & credit methods are thread safe. This is a conscious decision, so that in the future if it is necessary to read and process multiple inputs we do not run into race conditions.
+5) have used java as my programming language, as I have more experience with it.  
+
+Dependencies:
+============
+1) Unzip the folder contents to $WORKSPACE
+2) Download hamcrest-core-1.3.jar from https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core/1.3 and copy it to $WORKSPACE/braintree/lib/
+3) Download junit-4.10.jar from https://mvnrepository.com/artifact/junit/junit/4.10 and copy it to $WORKSPACE/braintree/lib/
+
+Instructions to execute the program and running tests:
+=====================================================
+1) Open cmd and navigate to $WORKSPACE\braintree\src
+2) To compile: a) cd bt
+               b) javac -cp $WORKSPACE\braintree\src;$WORKSPACE\braintree\lib\junit-4.10.jar *.java
+               
+3) To process an input file, place in in src folder and a) cd to src
+                                                        b) java -cp $WORKSPACE\braintree\src bt.ProcessInput < input.txt
+                                                         or java -cp $WORKSPACE\braintree\src bt.ProcessInput input.txt
+                                                        c) Enter more commands like: Add phoebe 123456789012345 $1000 ...
+                                                        d) To terminate the program , press CTRL+ Z
+4) To run tests: a) cd to src
+                 b) java -cp $WORKSPACE\braintree\src;$WORKSPACE\braintree\lib\junit-4.10.jar bt.TestRunner
+                   or java -cp $WORKSPACE\braintree\src;$WORKSPACE\braintree\lib\junit-4.10.jar org.junit.runner.JUnitCore bt.AccountTest
+   
